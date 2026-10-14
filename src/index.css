@@ -1,0 +1,365 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;700;800;900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ═══════════════════════════════════════════════
+   DESIGN TOKENS — DARK (default)
+═══════════════════════════════════════════════ */
+:root {
+  /* surfaces */
+  --surface:             #090a0d;
+  --page-background:     #08090b;
+
+  /* typography */
+  --text-primary:        #f8f8f6;
+  --text-secondary:      #d1d5db;
+  --text-muted:          #787f8d;
+
+  /* accent */
+  --accent-lime:         #d9ff38;
+  --accent-text:         #d9ff38;
+
+  /* structural */
+  --border:              rgba(255, 255, 255, 0.07);
+  --grid-line:           rgba(255, 255, 255, 0.035);
+
+  /* SVG / horizon */
+  --horizon-neutral:     #ffffff;
+
+  /* navigation pill glass — dark */
+  --nav-pill-bg:         rgba(9, 10, 13, 0.78);
+  --nav-pill-border:     rgba(255, 255, 255, 0.10);
+  --nav-pill-shadow:     0 4px 20px rgba(0, 0, 0, 0.40), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+
+  /* CTA primary */
+  --cta-bg:              #d9ff38;
+  --cta-fg:              #0a0b00;
+}
+
+/* ═══════════════════════════════════════════════
+   DESIGN TOKENS — LIGHT
+═══════════════════════════════════════════════ */
+[data-theme='light'] {
+  /* surfaces */
+  --surface:             #ECEEE6;
+  --page-background:     #F0F0E8;
+
+  /* typography */
+  --text-primary:        #171A17;
+  --text-secondary:      #414941;
+  --text-muted:          #687067;
+
+  /* accent — deep olive for small text/icons on cream */
+  --accent-lime:         #d9ff38;
+  --accent-text:         #526B00;
+
+  /* structural */
+  --border:              #CDD1C7;
+  --grid-line:           rgba(23, 26, 23, 0.048);
+
+  /* SVG / horizon */
+  --horizon-neutral:     #525c50;
+
+  /* navigation pill glass — light */
+  --nav-pill-bg:         rgba(255, 255, 248, 0.72);
+  --nav-pill-border:     rgba(35, 42, 33, 0.14);
+  --nav-pill-shadow:     0 4px 18px rgba(23, 26, 23, 0.10), inset 0 1px 0 rgba(255, 255, 255, 0.55);
+
+  /* CTA primary — vivid lime stays; text very dark for contrast */
+  --cta-bg:              #d9ff38;
+  --cta-fg:              #11130C;
+}
+
+/* ═══════════════════════════════════════════════
+   BASE
+═══════════════════════════════════════════════ */
+html {
+  scroll-behavior: auto;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  background: var(--page-background);
+  color: var(--text-primary);
+  font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
+  overflow-x: hidden;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+/* ═══════════════════════════════════════════════
+   UTILITIES
+═══════════════════════════════════════════════ */
+.font-mono-tech {
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.accent-text {
+  color: var(--accent-text);
+}
+
+/* ═══════════════════════════════════════════════
+   HERO SURFACE + GRID
+═══════════════════════════════════════════════ */
+.hero-surface {
+  background: var(--surface);
+  border-color: var(--border);
+}
+
+.bg-tech-grid {
+  background-image:
+    linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
+  background-size: 80px 80px;
+}
+
+[data-theme='light'] .hero-surface .bg-tech-grid {
+  opacity: 1;
+}
+
+/* ═══════════════════════════════════════════════
+   AMBIENT GLOW
+═══════════════════════════════════════════════ */
+.ambient-glow {
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(217, 255, 56, 0.04) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+[data-theme='light'] .ambient-glow {
+  opacity: 0.15;
+}
+
+/* ═══════════════════════════════════════════════
+   NAVIGATION PILL
+   Wraps ONLY the four nav links — not the logo,
+   not the resume button, not the theme toggle.
+═══════════════════════════════════════════════ */
+.nav-pill {
+  display: flex;
+  align-items: center;
+  gap: 1.75rem;
+  padding: 0.65rem 1.6rem;
+  border-radius: 9999px;
+  border: 1px solid var(--nav-pill-border);
+  background: var(--nav-pill-bg);
+  backdrop-filter: blur(14px) saturate(1.15);
+  -webkit-backdrop-filter: blur(14px) saturate(1.15);
+  box-shadow: var(--nav-pill-shadow);
+  white-space: nowrap;
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .nav-pill {
+    background: var(--surface);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+}
+
+/* ═══════════════════════════════════════════════
+   NAV ACTIVE INDICATORS
+═══════════════════════════════════════════════ */
+.nav-glow {
+  box-shadow: 0 0 10px var(--accent-text), 0 0 20px color-mix(in srgb, var(--accent-text) 50%, transparent);
+}
+
+.nav-active-bar {
+  background-color: var(--accent-text);
+  opacity: 0.85;
+}
+
+/* ═══════════════════════════════════════════════
+   RESUME CONTROL — outside the pill
+═══════════════════════════════════════════════ */
+.resume-control {
+  border-color: var(--border);
+  background-color: transparent;
+  color: var(--text-secondary);
+  transition: border-color 0.15s, color 0.15s;
+}
+
+.resume-control:hover {
+  border-color: color-mix(in srgb, var(--accent-text) 45%, transparent);
+  color: var(--text-primary);
+}
+
+/* ═══════════════════════════════════════════════
+   THEME TOGGLE — outside the pill
+═══════════════════════════════════════════════ */
+.theme-control {
+  border-color: var(--border);
+  background-color: transparent;
+  color: var(--accent-text);
+  transition: border-color 0.15s, background-color 0.15s;
+}
+
+.theme-control:hover {
+  background-color: color-mix(in srgb, var(--accent-text) 10%, transparent);
+  border-color: color-mix(in srgb, var(--accent-text) 40%, transparent);
+}
+
+/* ═══════════════════════════════════════════════
+   CTA BUTTONS
+═══════════════════════════════════════════════ */
+.btn-neon {
+  background-color: var(--cta-bg);
+  color: var(--cta-fg);
+  box-shadow: 0 0 22px rgba(217, 255, 56, 0.35), 0 0 5px rgba(217, 255, 56, 0.75);
+}
+
+.btn-neon:hover {
+  box-shadow: 0 0 32px rgba(217, 255, 56, 0.55), 0 0 10px rgba(217, 255, 56, 0.90);
+}
+
+.btn-outline {
+  border: 1px solid var(--border);
+  background-color: color-mix(in srgb, var(--surface) 82%, transparent);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: var(--text-secondary);
+  transition: border-color 0.15s, color 0.15s;
+}
+
+.btn-outline:hover {
+  border-color: color-mix(in srgb, var(--accent-text) 50%, transparent);
+  color: var(--accent-text);
+}
+
+/* ═══════════════════════════════════════════════
+   CROSSHAIR — uses border token
+═══════════════════════════════════════════════ */
+.crosshair {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  pointer-events: none;
+}
+
+.crosshair::before,
+.crosshair::after {
+  content: '';
+  position: absolute;
+  background: var(--border);
+}
+
+.crosshair::before {
+  top: 6px;
+  left: 0;
+  width: 14px;
+  height: 1px;
+}
+
+.crosshair::after {
+  top: 0;
+  left: 6px;
+  width: 1px;
+  height: 14px;
+}
+
+/* ═══════════════════════════════════════════════
+   TECHNICAL RAIL
+═══════════════════════════════════════════════ */
+.rail-divider {
+  width: 1px;
+  background: var(--border);
+}
+
+.rail-scroll-track {
+  background: var(--border);
+}
+
+/* ═══════════════════════════════════════════════
+   WIREFRAME SVG — CSS class hooks for theming
+═══════════════════════════════════════════════ */
+.wf-globe-stroke {
+  stroke: var(--horizon-neutral);
+}
+
+.wf-dots {
+  fill: #D9FF38;
+}
+[data-theme='light'] .wf-dots {
+  fill: #526B00;
+  fill-opacity: 0.55;
+}
+
+.wf-waypoint-line {
+  stroke: var(--accent-text);
+}
+
+.waypoint-node {
+  filter: drop-shadow(0 0 7px rgba(217, 255, 56, 0.70));
+}
+[data-theme='light'] .waypoint-node {
+  filter: drop-shadow(0 0 3px rgba(82, 107, 0, 0.50));
+}
+
+.wf-waypoint-halo {
+  fill: var(--accent-text);
+}
+
+/* ═══════════════════════════════════════════════
+   RESPONSIVE — tablet
+═══════════════════════════════════════════════ */
+@media (min-width: 481px) and (max-width: 899px) {
+  .hero-surface main h1 {
+    font-size: clamp(4.25rem, 9.2vw, 5.75rem);
+  }
+
+  .nav-pill {
+    gap: 1.1rem;
+    padding-inline: 1.1rem;
+    font-size: 9px;
+  }
+}
+
+/* ═══════════════════════════════════════════════
+   RESPONSIVE — mobile
+═══════════════════════════════════════════════ */
+@media (max-width: 767px) {
+  .hero-surface {
+    min-height: 700px;
+  }
+  .hero-surface aside {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-surface {
+    min-height: 620px;
+  }
+
+  .hero-surface main {
+    padding-inline: 1.5rem;
+  }
+
+  .hero-surface main h1 {
+    font-size: clamp(3.25rem, 15vw, 3.75rem);
+  }
+
+  .hero-surface main p {
+    font-size: 0.68rem;
+    letter-spacing: 0.15em;
+  }
+
+  .hero-surface .btn-neon,
+  .hero-surface .btn-outline {
+    width: min(100%, 260px);
+    min-width: 0;
+  }
+
+  .nav-pill {
+    display: none;
+  }
+}

@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Balaji Kalaskar — Portfolio Hero</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-color: #0b0c10;
+      --accent-lime: #D9FF38;
+      --accent-lime-glow: rgba(217, 255, 56, 0.35);
+      --grid-border: rgba(255, 255, 255, 0.045);
+      --text-muted: #787f8d;
+    }
+
+    body {
+      background-color: #08090b;
+      color: #ffffff;
+      font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
+      overflow-x: hidden;
+      margin: 0;
+      padding: 0;
+      width: 100vw;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .font-mono-tech {
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    /* Architectural grid background */
+    .bg-tech-grid {
+      background-size: 80px 80px;
+      background-image: 
+        linear-gradient(to right, rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+    }
+
+    /* Ambient spotlight glow behind hero text and corner */
+    .ambient-glow {
+      position: absolute;
+      width: 600px;
+      height: 600px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(217, 255, 56, 0.04) 0%, rgba(11, 12, 16, 0) 70%);
+      pointer-events: none;
+    }
+
+    /* Nav active dot glow */
+    .nav-glow {
+      box-shadow: 0 0 12px #D9FF38, 0 0 24px rgba(217, 255, 56, 0.5);
+    }
+
+    /* Button neon glow on primary button */
+    .btn-neon {
+      background-color: #D9FF38;
+      color: #000000;
+      box-shadow: 0 0 25px rgba(217, 255, 56, 0.38), 0 0 5px rgba(217, 255, 56, 0.8);
+      transition: all 0.25s ease;
+    }
+    .btn-neon:hover {
+      box-shadow: 0 0 35px rgba(217, 255, 56, 0.55), 0 0 10px rgba(217, 255, 56, 1);
+      transform: translateY(-1px);
+    }
+
+    .btn-outline {
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      background-color: rgba(14, 16, 20, 0.7);
+      backdrop-filter: blur(8px);
+      transition: all 0.25s ease;
+    }
+    .btn-outline:hover {
+      border-color: rgba(217, 255, 56, 0.5);
+      background-color: rgba(24, 28, 35, 0.9);
+      color: #D9FF38;
+      transform: translateY(-1px);
+    }
+
+    /* Glowing waypoint dot on the orbital curve */
+    .waypoint-node {
+      box-shadow: 0 0 14px 3px #D9FF38, 0 0 30px 6px rgba(217, 255, 56, 0.6);
+    }
+
+    /* Crosshair markers */
+    .crosshair {
+      position: absolute;
+      width: 14px;
+      height: 14px;
+      pointer-events: none;
+    }
+    .crosshair::before, .crosshair::after {
+      content: '';
+      position: absolute;
+      background: rgba(255, 255, 255, 0.2);
+    }
+    .crosshair::before {
+      top: 6px;
+      left: 0;
+      width: 14px;
+      height: 1px;
+    }
+    .crosshair::after {
+      top: 0;
+      left: 6px;
+      width: 1px;
+      height: 14px;
+    }
+
+    /* Lettering tracking adjustments */
+    .tracking-hero {
+      letter-spacing: -0.035em;
+    }
+
+    .tracking-sub {
+      letter-spacing: 0.38em;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 1440x900 Viewport Frame (Exact Desktop Composition) -->
+  <div class="relative w-[1440px] h-[900px] max-w-[1440px] max-h-[900px] bg-[#090a0d] border border-white/5 overflow-hidden flex flex-col justify-between select-none shadow-2xl">
+    
+    <!-- Background Technical Grid Layer -->
+    <div class="absolute inset-0 bg-tech-grid opacity-70 pointer-events-none"></div>
+
+    <!-- Soft Radial Ambient Glows -->
+    <div class="ambient-glow -top-32 -left-32"></div>
+    <div class="ambient-glow bottom-0 right-0" style="background: radial-gradient(circle, rgba(217, 255, 56, 0.03) 0%, transparent 70%);"></div>
+
+    <!-- Subtle Crosshairs from Reference Image -->
+    <div class="crosshair top-[270px] right-[180px]"></div>
+    <div class="crosshair top-[620px] right-[180px]"></div>
+    <div class="crosshair top-[200px] left-[260px] opacity-40"></div>
+
+    <!-- ========================================================================= -->
+    <!-- VECTOR GEOMETRY: WIREFRAME DIGITAL HORIZON & ORBITAL ARC (NO IMAGES)     -->
+    <!-- ========================================================================= -->
+    <svg class="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 1440 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <!-- Subtle linear gradient for digital sphere surface wireframe -->
+        <linearGradient id="globeFade" x1="720" y1="640" x2="1440" y2="900" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stop-color="#ffffff" stop-opacity="0.32" />
+          <stop offset="40%" stop-color="#D9FF38" stop-opacity="0.25" />
+          <stop offset="100%" stop-color="#ffffff" stop-opacity="0.03" />
+        </linearGradient>
+
+        <!-- Orbital neon trajectory gradient -->
+        <linearGradient id="orbitGrad" x1="500" y1="900" x2="1400" y2="400" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stop-color="#ffffff" stop-opacity="0.05" />
+          <stop offset="45%" stop-color="#ffffff" stop-opacity="0.25" />
+          <stop offset="70%" stop-color="#D9FF38" stop-opacity="0.85" />
+          <stop offset="100%" stop-color="#ffffff" stop-opacity="0.08" />
+        </linearGradient>
+
+        <linearGradient id="subOrbitGrad" x1="400" y1="900" x2="1440" y2="280" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stop-color="#ffffff" stop-opacity="0.03" />
+          <stop offset="60%" stop-color="#ffffff" stop-opacity="0.12" />
+          <stop offset="100%" stop-color="#ffffff" stop-opacity="0.02" />
+        </linearGradient>
+
+        <!-- Mask to blend the base of the globe softly into the darkness -->
+        <radialGradient id="globeMaskGrad" cx="1050" cy="980" r="750" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stop-color="#000000" stop-opacity="1" />
+          <stop offset="70%" stop-color="#000000" stop-opacity="0.9" />
+          <stop offset="100%" stop-color="#000000" stop-opacity="0" />
+        </radialGradient>
+      </defs>
+
+      <!-- Digital Horizon Sphere Dome (Latitude rings & Longitude meridians) -->
+      <g opacity="0.45" stroke="url(#globeFade)" stroke-width="0.8">
+        <!-- Main Sphere Outer Horizon Edge -->
+        <ellipse cx="1060" cy="1040" rx="720" ry="380" stroke="#ffffff" stroke-opacity="0.4" stroke-width="1.2" />
+
+        <!-- Latitudes (Concentric rings receding to horizon) -->
+        <ellipse cx="1060" cy="1005" rx="685" ry="345" stroke-dasharray="2 3" opacity="0.6" />
+        <ellipse cx="1060" cy="970" rx="645" ry="310" stroke-dasharray="1 3" opacity="0.75" />
+        <ellipse cx="1060" cy="935" rx="600" ry="275" opacity="0.5" />
+        <ellipse cx="1060" cy="900" rx="545" ry="238" stroke-dasharray="2 4" opacity="0.6" />
+        <ellipse cx="1060" cy="865" rx="480" ry="200" opacity="0.4" />
+        <ellipse cx="1060" cy="830" rx="410" ry="160" stroke-dasharray="1 3" opacity="0.4" />
+        <ellipse cx="1060" cy="795" rx="330" ry="120" opacity="0.3" />
+        <ellipse cx="1060" cy="760" rx="240" ry="80" opacity="0.2" />
+
+        <!-- Longitude Meridians -->
+        <path d="M 340,1040 C 340,820 700,700 1060,700 C 1420,700 1780,820 1780,1040" stroke-dasharray="3 4" opacity="0.4" />
+        <path d="M 460,1040 C 460,800 760,680 1060,680 C 1360,680 1660,800 1660,1040" opacity="0.5" />
+        <path d="M 600,1040 C 600,770 830,665 1060,665 C 1290,665 1520,770 1520,1040" stroke-dasharray="2 3" opacity="0.45" />
+        <path d="M 750,1040 C 750,750 900,660 1060,660 C 1220,660 1370,750 1370,1040" opacity="0.6" />
+        <path d="M 900,1040 C 900,740 980,658 1060,658 C 1140,658 1220,740 1220,1040" stroke-dasharray="1 3" opacity="0.4" />
+        <line x1="1060" y1="657" x2="1060" y2="1040" opacity="0.7" />
+      </g>
+
+      <!-- Digital Particles & Grid Dots on Sphere Surface -->
+      <g fill="#D9FF38" opacity="0.75">
+        <circle cx="890" cy="725" r="1.2" />
+        <circle cx="945" cy="710" r="1.5" />
+        <circle cx="1020" cy="695" r="1.2" />
+        <circle cx="1100" cy="700" r="1.4" />
+        <circle cx="1175" cy="720" r="1.2" />
+        <circle cx="1250" cy="750" r="1.5" />
+        <circle cx="1310" cy="780" r="1.3" />
+        <circle cx="820" cy="760" r="1.5" />
+        <circle cx="750" cy="805" r="1.2" />
+        <circle cx="680" cy="860" r="1.4" />
+      </g>
+
+      <!-- Primary Sweeping Orbital Curve (matches reference trajectory) -->
+      <path d="M 430,900 C 680,840 960,670 1380,310" stroke="url(#orbitGrad)" stroke-width="1.6" />
+      <!-- Secondary Harmonic Orbit Trace -->
+      <path d="M 310,900 C 610,870 940,780 1440,490" stroke="url(#subOrbitGrad)" stroke-width="1" stroke-dasharray="4 6" />
+
+      <!-- Glowing Orbital Waypoint Node [Square Marker with Glowing Core] -->
+      <!-- Positioned precisely around x: 1156, y: 494 along the trajectory -->
+      <g transform="translate(1156, 494)">
+        <!-- Outer soft diffuse aura -->
+        <circle cx="0" cy="0" r="18" fill="#D9FF38" fill-opacity="0.12" />
+        <circle cx="0" cy="0" r="9" fill="#D9FF38" fill-opacity="0.25" />
+        <!-- Sharp diamond / square waypoint -->
+        <rect x="-4.5" y="-4.5" width="9" height="9" fill="#D9FF38" rx="1.5" class="waypoint-node" />
+        <!-- Precision target ping tick -->
+        <line x1="-12" y1="0" x2="-7" y2="0" stroke="#D9FF38" stroke-width="0.7" opacity="0.7" />
+        <line x1="7" y1="0" x2="12" y2="0" stroke="#D9FF38" stroke-width="0.7" opacity="0.7" />
+        <line x1="0" y1="-12" x2="0" y2="-7" stroke="#D9FF38" stroke-width="0.7" opacity="0.7" />
+        <line x1="0" y1="7" x2="0" y2="12" stroke="#D9FF38" stroke-width="0.7" opacity="0.7" />
+      </g>
+    </svg>
+
+    <!-- ========================================================================= -->
+    <!-- TOP NAVIGATION BAR                                                        -->
+    <!-- ========================================================================= -->
+    <header class="relative z-30 w-full px-14 pt-9 flex items-center justify-between">
+      
+      <!-- Brand Logo / Wordmark -->
+      <div class="flex items-center space-x-1 cursor-pointer group">
+        <span class="text-2xl font-black tracking-tight text-white transition-colors group-hover:text-gray-200">BK</span>
+        <span class="text-2xl font-black text-[#D9FF38] transition-transform duration-300 group-hover:translate-x-0.5">/</span>
+      </div>
+
+      <!-- Center Navigation Links with Active Indicator -->
+      <nav class="flex items-center space-x-11 text-[11px] font-mono-tech tracking-wider uppercase">
+        <!-- 01. HOME (Active with glowing neon dot & subtle underline aura) -->
+        <a href="#home" class="relative flex items-center space-x-2 text-[#D9FF38] font-semibold py-1">
+          <span class="w-1.5 h-1.5 rounded-full bg-[#D9FF38] nav-glow"></span>
+          <span>01. HOME</span>
+          <!-- Soft glow capsule under active item as in reference -->
+          <span class="absolute -bottom-1.5 left-1/2 -translate-x-1/2 w-8 h-[2px] bg-[#D9FF38] opacity-80 blur-[1px]"></span>
+        </a>
+
+        <!-- 02. WORK -->
+        <a href="#work" class="text-gray-400 hover:text-white transition-colors py-1">
+          02. WORK
+        </a>
+
+        <!-- 03. ABOUT -->
+        <a href="#about" class="text-gray-400 hover:text-white transition-colors py-1">
+          03. ABOUT
+        </a>
+
+        <!-- 04. CONTACT -->
+        <a href="#contact" class="text-gray-400 hover:text-white transition-colors py-1">
+          04. CONTACT
+        </a>
+      </nav>
+
+      <!-- Right Header Actions (Resume Pill + Theme Sun Icon) -->
+      <div class="flex items-center space-x-4">
+        <!-- RESUME.PDF Button with Arrow -->
+        <a href="#resume" class="flex items-center space-x-2 px-5 py-2 rounded-full border border-white/20 bg-black/40 text-[10.5px] font-mono-tech tracking-wider text-gray-200 hover:text-white hover:border-[#D9FF38]/60 hover:bg-white/5 transition-all">
+          <span>RESUME.PDF</span>
+          <!-- North-East Vector Arrow ↗ -->
+          <svg class="w-3 h-3 text-gray-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="7" y1="17" x2="17" y2="7"></line>
+            <polyline points="7 7 17 7 17 17"></polyline>
+          </svg>
+        </a>
+
+        <!-- Theme Mode Toggle Button (Sun Icon inside circle) -->
+        <button aria-label="Toggle Theme" class="w-9 h-9 rounded-full border border-white/15 bg-black/40 flex items-center justify-center text-[#D9FF38] hover:border-[#D9FF38]/50 hover:bg-[#D9FF38]/10 transition-all">
+          <svg class="w-4 h-4 text-[#D9FF38]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="4.5" fill="#D9FF38" fill-opacity="0.2"></circle>
+            <path d="M12 2v2"></path>
+            <path d="M12 20v2"></path>
+            <path d="M4.93 4.93l1.41 1.41"></path>
+            <path d="M17.66 17.66l1.41 1.41"></path>
+            <path d="M2 12h2"></path>
+            <path d="M20 12h2"></path>
+            <path d="M6.34 17.66l-1.41 1.41"></path>
+            <path d="M19.07 4.93l-1.41 1.41"></path>
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- ========================================================================= -->
+    <!-- LEFT TECHNICAL DOCK / VERTICAL HUD BAR                                    -->
+    <!-- ========================================================================= -->
+    <aside class="absolute left-10 top-0 bottom-0 w-8 z-20 flex flex-col items-center justify-between py-12 pointer-events-none">
+      
+      <!-- Top Empty Anchor Space -->
+      <div></div>
+
+      <!-- Mid Section: Vertical Label + Step Navigation Indicators -->
+      <div class="flex flex-col items-center space-y-7 pointer-events-auto">
+        
+        <!-- Rotated FULL-STACK DEVELOPER Label -->
+        <div class="transform -rotate-90 origin-center whitespace-nowrap mb-8">
+          <span class="text-[9px] font-mono-tech tracking-[0.25em] text-gray-500 uppercase">
+            FULL-STACK DEVELOPER
+          </span>
+        </div>
+
+        <!-- Vertical Timeline Stepper 01 to 04 -->
+        <div class="flex flex-col items-center space-y-2 text-[10px] font-mono-tech">
+          <!-- 01 Active State -->
+          <span class="text-white font-medium text-[10px]">01</span>
+          <!-- Active Neon Square indicator with subtle glow -->
+          <div class="w-2 h-2 rounded-[1.5px] bg-[#D9FF38] shadow-[0_0_8px_#D9FF38]"></div>
+          
+          <!-- Connecting vertical thread -->
+          <div class="w-[1px] h-3 bg-white/10"></div>
+          
+          <!-- Inactive steps -->
+          <span class="text-gray-600 hover:text-gray-400 transition-colors cursor-pointer">02</span>
+          <div class="w-[1px] h-3 bg-white/10"></div>
+          <span class="text-gray-600 hover:text-gray-400 transition-colors cursor-pointer">03</span>
+          <div class="w-[1px] h-3 bg-white/10"></div>
+          <span class="text-gray-600 hover:text-gray-400 transition-colors cursor-pointer">04</span>
+        </div>
+      </div>
+
+      <!-- Bottom SCROLL Indicator -->
+      <div class="flex flex-col items-center space-y-2 pointer-events-auto">
+        <span class="text-[9px] font-mono-tech tracking-[0.2em] text-gray-500 uppercase">SCROLL</span>
+        <!-- Small slider track with neon dot -->
+        <div class="w-[2px] h-8 bg-white/10 relative rounded-full flex justify-center">
+          <div class="w-1.5 h-1.5 rounded-full bg-[#D9FF38] shadow-[0_0_8px_#D9FF38] absolute top-1"></div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- ========================================================================= -->
+    <!-- HERO MAIN CONTENT (EDITORIAL TYPOGRAPHY + ACTIONS)                       -->
+    <!-- ========================================================================= -->
+    <main class="relative z-20 px-28 pb-24 flex flex-col justify-center max-w-5xl">
+      
+      <!-- Meta Technical Index Badge: [ 01 ] -->
+      <div class="mb-3 flex items-center space-x-2">
+        <span class="text-xs font-mono-tech text-gray-400 tracking-widest">[ 01 ]</span>
+      </div>
+
+      <!-- Massive Editorial Display Typography -->
+      <div class="flex flex-col leading-[0.88] select-text">
+        <!-- First line: BALAJI (Pure High-Contrast White) -->
+        <h1 class="text-[108px] font-black uppercase text-white tracking-hero drop-shadow-sm m-0 p-0">
+          BALAJI
+        </h1>
+        
+        <!-- Second line: KALASKAR (Electric Lime #D9FF38) -->
+        <h2 class="text-[108px] font-black uppercase text-[#D9FF38] tracking-hero m-0 p-0 drop-shadow-[0_4px_24px_rgba(217,255,56,0.12)]">
+          KALASKAR
+        </h2>
+      </div>
+
+      <!-- Subtitle Tagline with Horizontal Dash -->
+      <div class="mt-6 flex items-center space-x-4">
+        <!-- Technical Rule / Dash -->
+        <span class="w-10 h-[1.5px] bg-gray-500"></span>
+        <p class="text-[13px] font-mono-tech text-gray-300 font-medium tracking-sub uppercase">
+          FULL-STACK DEVELOPER
+        </p>
+      </div>
+
+      <!-- Call to Action Buttons -->
+      <div class="mt-11 flex items-center space-x-5">
+        
+        <!-- Primary Button: EXPLORE MY WORK ↗ (Electric Lime Neon Fill) -->
+        <a href="#work" class="btn-neon px-7 py-3.5 rounded-full flex items-center space-x-3 text-xs font-mono-tech font-bold tracking-wider cursor-pointer">
+          <span class="text-black">EXPLORE MY WORK</span>
+          <svg class="w-3.5 h-3.5 text-black" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="7" y1="17" x2="17" y2="7"></line>
+            <polyline points="7 7 17 7 17 17"></polyline>
+          </svg>
+        </a>
+
+        <!-- Secondary Button: LET'S CONNECT ↗ (Dark Glass Minimal Outline) -->
+        <a href="#contact" class="btn-outline px-7 py-3.5 rounded-full flex items-center space-x-3 text-xs font-mono-tech font-semibold tracking-wider text-gray-200 cursor-pointer">
+          <span>LET'S CONNECT</span>
+          <svg class="w-3.5 h-3.5 text-gray-400 group-hover:text-[#D9FF38]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="7" y1="17" x2="17" y2="7"></line>
+            <polyline points="7 7 17 7 17 17"></polyline>
+          </svg>
+        </a>
+
+      </div>
+
+    </main>
+
+    <!-- Empty Spacer for Bottom Balance -->
+    <div class="h-6"></div>
+
+  </div>
+
+</body>
+</html>
