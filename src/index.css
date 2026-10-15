@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;700;800;900&display=swap');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -36,6 +34,11 @@
   /* CTA primary */
   --cta-bg:              #d9ff38;
   --cta-fg:              #0a0b00;
+  --portfolio-surface:   #0b0d0c;
+  --portfolio-panel:     #101310;
+  --portfolio-line:      rgba(255, 255, 255, 0.12);
+  --portfolio-soft-line: rgba(255, 255, 255, 0.07);
+  --portfolio-muted:     #9ca3af;
 }
 
 /* ═══════════════════════════════════════════════
@@ -49,7 +52,7 @@
   /* typography */
   --text-primary:        #171A17;
   --text-secondary:      #414941;
-  --text-muted:          #687067;
+  --text-muted:          #5c635b;
 
   /* accent — deep olive for small text/icons on cream */
   --accent-lime:         #d9ff38;
@@ -70,6 +73,11 @@
   /* CTA primary — vivid lime stays; text very dark for contrast */
   --cta-bg:              #d9ff38;
   --cta-fg:              #11130C;
+  --portfolio-surface:   #e7e9e1;
+  --portfolio-panel:     #f0f1e9;
+  --portfolio-line:      rgba(23, 26, 23, 0.22);
+  --portfolio-soft-line: rgba(23, 26, 23, 0.12);
+  --portfolio-muted:     #586258;
 }
 
 /* ═══════════════════════════════════════════════
@@ -77,6 +85,7 @@
 ═══════════════════════════════════════════════ */
 html {
   scroll-behavior: auto;
+  overflow-x: clip;
 }
 
 body {
@@ -86,7 +95,7 @@ body {
   background: var(--page-background);
   color: var(--text-primary);
   font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 
 #root {
@@ -96,10 +105,6 @@ body {
 /* ═══════════════════════════════════════════════
    UTILITIES
 ═══════════════════════════════════════════════ */
-.font-mono-tech {
-  font-family: 'JetBrains Mono', monospace;
-}
-
 .accent-text {
   color: var(--accent-text);
 }
@@ -124,22 +129,6 @@ body {
 }
 
 /* ═══════════════════════════════════════════════
-   AMBIENT GLOW
-═══════════════════════════════════════════════ */
-.ambient-glow {
-  position: absolute;
-  width: 600px;
-  height: 600px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(217, 255, 56, 0.04) 0%, transparent 70%);
-  pointer-events: none;
-}
-
-[data-theme='light'] .ambient-glow {
-  opacity: 0.15;
-}
-
-/* ═══════════════════════════════════════════════
    NAVIGATION PILL
    Wraps ONLY the four nav links — not the logo,
    not the resume button, not the theme toggle.
@@ -157,6 +146,8 @@ body {
   box-shadow: var(--nav-pill-shadow);
   white-space: nowrap;
 }
+
+.nav-label-compact { display: none; }
 
 @media (prefers-reduced-transparency: reduce) {
   .nav-pill {
@@ -188,9 +179,11 @@ body {
   transition: border-color 0.15s, color 0.15s;
 }
 
-.resume-control:hover {
-  border-color: color-mix(in srgb, var(--accent-text) 45%, transparent);
-  color: var(--text-primary);
+@media (hover: hover) and (pointer: fine) {
+  .resume-control:hover {
+    border-color: color-mix(in srgb, var(--accent-text) 45%, transparent);
+    color: var(--text-primary);
+  }
 }
 
 /* ═══════════════════════════════════════════════
@@ -203,9 +196,11 @@ body {
   transition: border-color 0.15s, background-color 0.15s;
 }
 
-.theme-control:hover {
-  background-color: color-mix(in srgb, var(--accent-text) 10%, transparent);
-  border-color: color-mix(in srgb, var(--accent-text) 40%, transparent);
+@media (hover: hover) and (pointer: fine) {
+  .theme-control:hover {
+    background-color: color-mix(in srgb, var(--accent-text) 10%, transparent);
+    border-color: color-mix(in srgb, var(--accent-text) 40%, transparent);
+  }
 }
 
 /* ═══════════════════════════════════════════════
@@ -217,8 +212,10 @@ body {
   box-shadow: 0 0 22px rgba(217, 255, 56, 0.35), 0 0 5px rgba(217, 255, 56, 0.75);
 }
 
-.btn-neon:hover {
-  box-shadow: 0 0 32px rgba(217, 255, 56, 0.55), 0 0 10px rgba(217, 255, 56, 0.90);
+@media (hover: hover) and (pointer: fine) {
+  .btn-neon:hover {
+    box-shadow: 0 0 32px rgba(217, 255, 56, 0.55), 0 0 10px rgba(217, 255, 56, 0.90);
+  }
 }
 
 .btn-outline {
@@ -230,40 +227,11 @@ body {
   transition: border-color 0.15s, color 0.15s;
 }
 
-.btn-outline:hover {
-  border-color: color-mix(in srgb, var(--accent-text) 50%, transparent);
-  color: var(--accent-text);
-}
-
-/* ═══════════════════════════════════════════════
-   CROSSHAIR — uses border token
-═══════════════════════════════════════════════ */
-.crosshair {
-  position: absolute;
-  width: 14px;
-  height: 14px;
-  pointer-events: none;
-}
-
-.crosshair::before,
-.crosshair::after {
-  content: '';
-  position: absolute;
-  background: var(--border);
-}
-
-.crosshair::before {
-  top: 6px;
-  left: 0;
-  width: 14px;
-  height: 1px;
-}
-
-.crosshair::after {
-  top: 0;
-  left: 6px;
-  width: 1px;
-  height: 14px;
+@media (hover: hover) and (pointer: fine) {
+  .btn-outline:hover {
+    border-color: color-mix(in srgb, var(--accent-text) 50%, transparent);
+    color: var(--accent-text);
+  }
 }
 
 /* ═══════════════════════════════════════════════
@@ -279,52 +247,59 @@ body {
 }
 
 /* ═══════════════════════════════════════════════
-   WIREFRAME SVG — CSS class hooks for theming
+   WIREFRAME GLOBE
 ═══════════════════════════════════════════════ */
-.wf-globe-stroke {
-  stroke: var(--horizon-neutral);
+.wireframe-hero { overflow: hidden; pointer-events: none; }
+.globe-line, .globe-line * { vector-effect: non-scaling-stroke; }
+.globe-contour { fill: none; stroke: var(--horizon-neutral); stroke-width: 1.2; opacity: .34; }
+.globe-grid { fill: none; stroke: var(--horizon-neutral); stroke-width: 1; }
+/* depth-0 sits near the limb, depth-2 faces the viewer */
+.globe-depth-0 { opacity: .1; }
+.globe-depth-1 { opacity: .2; }
+.globe-depth-2 { opacity: .32; }
+.globe-point { fill: var(--accent-text); opacity: .6; }
+.orbit-path { fill: none; stroke-width: 1.5; }
+.orbit-waypoint-halo { fill: var(--accent-text); opacity: .12; }
+.orbit-waypoint { fill: var(--accent-text); filter: drop-shadow(0 0 4px color-mix(in srgb, var(--accent-text) 60%, transparent)); }
+.orbit-tick { stroke: var(--accent-text); stroke-width: 1; opacity: .7; }
+[data-theme='light'] .globe-contour { opacity: .5; }
+[data-theme='light'] .globe-depth-0 { opacity: .2; }
+[data-theme='light'] .globe-depth-1 { opacity: .34; }
+[data-theme='light'] .globe-depth-2 { opacity: .5; }
+[data-theme='light'] .globe-point { opacity: .8; }
+[data-theme='light'] .orbit-waypoint { filter: none; }
+
+/* Narrower than the desktop crop: the globe docks to the bottom of the hero so the
+   orbit and waypoint stay below the CTAs instead of running through them. */
+@media (max-width: 1023px) {
+  .wireframe-hero { top: auto; bottom: 0; height: 45%; }
 }
 
-.wf-dots {
-  fill: #D9FF38;
-}
-[data-theme='light'] .wf-dots {
-  fill: #526B00;
-  fill-opacity: 0.55;
+@media (max-width: 480px) {
+  .wireframe-hero { height: 40%; }
 }
 
-.wf-waypoint-line {
-  stroke: var(--accent-text);
-}
-
-.waypoint-node {
-  filter: drop-shadow(0 0 7px rgba(217, 255, 56, 0.70));
-}
-[data-theme='light'] .waypoint-node {
-  filter: drop-shadow(0 0 3px rgba(82, 107, 0, 0.50));
-}
-
-.wf-waypoint-halo {
-  fill: var(--accent-text);
+@media (max-width: 600px) {
+  .wireframe-hero { opacity: .7; }
 }
 
 /* ═══════════════════════════════════════════════
    RESPONSIVE — tablet
 ═══════════════════════════════════════════════ */
 @media (min-width: 481px) and (max-width: 899px) {
-  .hero-surface main h1 {
+  .hero-content h1 {
     font-size: clamp(4.25rem, 9.2vw, 5.75rem);
   }
 
   .nav-pill {
     gap: 1.1rem;
     padding-inline: 1.1rem;
-    font-size: 9px;
   }
 }
 
 /* ═══════════════════════════════════════════════
    RESPONSIVE — mobile
+   The pill stays; links grow to 44px-tall targets and text stays at 11px.
 ═══════════════════════════════════════════════ */
 @media (max-width: 767px) {
   .hero-surface {
@@ -333,6 +308,14 @@ body {
   .hero-surface aside {
     display: none;
   }
+
+  .nav-pill { gap: .75rem; padding: 0 .85rem; letter-spacing: .04em; }
+  .nav-pill .nav-link { display: inline-flex; min-height: 44px; align-items: center; }
+  .nav-pill .nav-active-bar { bottom: .45rem; }
+  .nav-label-full { display: none; }
+  .nav-label-compact { display: inline; }
+  .resume-control { min-height: 44px; letter-spacing: .08em; }
+  .theme-control { width: 2.75rem; height: 2.75rem; }
 }
 
 @media (max-width: 480px) {
@@ -340,16 +323,16 @@ body {
     min-height: 620px;
   }
 
-  .hero-surface main {
+  .hero-content {
     padding-inline: 1.5rem;
   }
 
-  .hero-surface main h1 {
-    font-size: clamp(3.25rem, 15vw, 3.75rem);
+  .hero-content h1 {
+    font-size: clamp(2.6rem, 14.5vw, 3.75rem);
   }
 
-  .hero-surface main p {
-    font-size: 0.68rem;
+  .hero-content p {
+    font-size: 0.6875rem;
     letter-spacing: 0.15em;
   }
 
@@ -359,7 +342,30 @@ body {
     min-width: 0;
   }
 
-  .nav-pill {
-    display: none;
-  }
+  .nav-pill { gap: .5rem; padding: 0 .7rem; letter-spacing: .02em; }
+  .nav-pill .nav-glow { display: none; }
+  /* Resume collapses to its icon; the link keeps its accessible name. */
+  .resume-control { min-width: 44px; justify-content: center; padding-inline: 0; }
+  .resume-control span:first-child { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; }
+  .resume-control svg { width: .8rem; height: .8rem; }
+  .orbit-path { opacity: .55; }
+}
+
+@media (max-width: 359px) {
+  .hero-surface header { gap: .35rem; padding-inline: .85rem; }
+  .site-header > a:first-child span { font-size: 1.25rem; }
+  .nav-pill { gap: .35rem; padding-inline: .45rem; letter-spacing: 0; }
+  .resume-control { min-width: 40px; min-height: 40px; }
+  .theme-control { width: 2.5rem; height: 2.5rem; }
+}
+
+/* ═══════════════════════════════════════════════
+   TOUCH + FOCUS
+═══════════════════════════════════════════════ */
+a, button { -webkit-tap-highlight-color: transparent; }
+
+.site-header a:focus-visible {
+  outline: 2px solid var(--accent-text);
+  outline-offset: 4px;
+  border-radius: 4px;
 }
